@@ -17,8 +17,8 @@ export default {
             colors: {
                 primary: '#6ab547',
                 background: '#ffffff',
+                dirtyBackground: '#f8fff5',
                 text: '#000000',
-                inputBackground: '#d1d5db',
                 border: '#e5e7eb',
                 accent: '#edd83d',
                 danger: '#ef4444',
