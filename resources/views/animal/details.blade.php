@@ -40,6 +40,13 @@
                 </div>
                 @endforeach
 
+                <a href="{{ route('shelter.details', ['uuid' => $shelter->uuid]) }}" class="p-2">
+                    <x-secondary-button>
+                        Shelter info 
+                    </x-secondary-button>
+                </a>
+
+
                 @foreach ($texts as $text)
                 <span class="p-1">
                     {{ $text['label'] }}
