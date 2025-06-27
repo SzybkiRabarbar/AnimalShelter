@@ -15,10 +15,41 @@ class AnimalController extends Controller
 {
     public function list(Request $request): View
     {
-        $animals = Animal::where('is_archived', false)->get();
+        $query = Animal::where('is_archived', false);
+
+        $selectedShelterId = $request->input('shelter_id');
+        $selectedType = $request->input('type');
+        $selectedBreed = $request->input('breed');
+
+        if ($selectedShelterId && $selectedShelterId !== 'all') {
+            $query->where('shelter_id', $selectedShelterId);
+        }
+
+        $types = $query->distinct()->pluck('type')->toArray();
+        $breeds = null;
+
+        if ($selectedType && $selectedType !== 'all') {
+            $query->where('type', $selectedType);
+            $breeds = $query->distinct()->pluck('breed')->toArray();
+        } else {
+            $selectedBreed = null;
+        }
+
+        if ($selectedBreed && $selectedBreed !== 'all') {
+            $query->where('breed', $selectedBreed);
+        }
+
+        $animals = $query->get();
+        $shelters = Shelter::all();
 
         return view('animal.list', [
             'animals' => $animals,
+            'shelters' => $shelters,
+            'selectedShelterId' => $selectedShelterId,
+            'types' => $types,
+            'selectedType' => $selectedType,
+            'breeds' => $breeds,
+            'selectedBreed' => $selectedBreed,
         ]);
     }
 

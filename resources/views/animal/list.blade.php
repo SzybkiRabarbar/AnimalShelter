@@ -4,16 +4,48 @@
     </x-slot>
 
     <x-base-div>
-        <span>Filters</span>
-        @auth
-        @if (Auth::user()->is_admin)
-        <a href="{{ route('animal.create') }}" class="p-2">
-            <x-primary-button>
-                Create
+        <form method="GET" action="{{ route('animal.list') }}" class="p-2 flex items-center space-x-4">
+            <label for="shelter_id" class="sr-only">Filter by Shelter</label>
+            <select name="shelter_id" id="shelter_id" class="border-border focus:border-primary focus:ring-primary rounded-md shadow-sm">
+                <option value="all">All Shelters</option>
+                @foreach ($shelters as $shelter)
+                <option value="{{ $shelter->id }}" {{ $selectedShelterId == $shelter->id ? 'selected' : '' }}>
+                    {{ $shelter->name }}
+                </option>
+                @endforeach
+            </select>
+            <select name="type" id="type" class="border-border focus:border-primary focus:ring-primary rounded-md shadow-sm">
+                <option value="all">All Types</option>
+                @foreach ($types as $type)
+                <option value="{{ $type }}" {{ $selectedType == $type ? 'selected' : '' }}>
+                    {{ $type }}
+                </option>
+                @endforeach
+            </select>
+            <select name="breed" id="breed" class="border-border focus:border-primary focus:ring-primary rounded-md shadow-sm" {{ empty($breeds) ? 'disabled ' : '' }}>
+                <option value="all" {{ empty($breeds) ? 'disabled' : '' }}>All breeds</option>
+                @if (!empty($breeds))
+                @foreach ($breeds as $breed)
+                <option value="{{ $breed }}" {{ $selectedBreed == $breed ? 'selected' : '' }}>
+                    {{ $breed }}
+                </option>
+                @endforeach
+                @endif
+            </select>
+            <x-primary-button type="submit">
+                Apply Filter
             </x-primary-button>
-        </a>
-        @endif
-        @endauth
+            @auth
+            @if (Auth::user()->is_admin)
+            <a href="{{ route('animal.create') }}">
+                <x-secondary-button>
+                    Create
+                </x-secondary-button>
+            </a>
+            @endif
+            @endauth
+        </form>
+
     </x-base-div>
 
 
