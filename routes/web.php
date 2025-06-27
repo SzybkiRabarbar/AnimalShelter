@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdoptionController;
 use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShelterController;
@@ -30,6 +31,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/shelter/{uuid}', [ShelterController::class, 'details'])->name('shelter.details');
 });
 
+// # Adoption #
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/adoption', [AdoptionController::class, 'list'])->name('adoption.list');
+    Route::post('/adoption', [AdoptionController::class, 'create'])->name('adoption.create');
+    Route::get('/adoption/{uuid}', [AdoptionController::class, 'details'])->name('adoption.details');
+    Route::patch('/adoption/{uuid}/accept', [AdoptionController::class, 'accept'])->name('adoption.accept');
+    Route::patch('/adoption/{uuid}/unaccept', [AdoptionController::class, 'unaccept'])->name('adoption.unaccept');
+    Route::patch('/adoption/{uuid}/taken', [AdoptionController::class, 'taken'])->name('adoption.taken');
+});
+
 // # Profile #
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -37,4 +48,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -29,6 +29,28 @@
                 ];
                 @endphp
 
+                @if($animal->is_archived)
+                <div class="bg-dirtyBackground p-1 border rounded-lg shadow-md">
+                    <h2 class="text-lg">ARCHIVED</h2>
+                    <div class="flex items-center">
+                        <span class="p-1">
+                            Archived date
+                        </span>
+                        <span class="p-1">
+                            {{ $animal->archived_date }}
+                        </span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="p-1">
+                            Archived cause
+                        </span>
+                        <span class="p-1">
+                            {{ $animal->archive_cause }}
+                        </span>
+                    </div>
+                </div>
+                @endif
+
                 @foreach ($details as $detail)
                 <div class="flex items-center">
                     <span class="p-1">
@@ -42,7 +64,7 @@
 
                 <a href="{{ route('shelter.details', ['uuid' => $shelter->uuid]) }}" class="p-2">
                     <x-secondary-button>
-                        Shelter info 
+                        Shelter info
                     </x-secondary-button>
                 </a>
 
@@ -64,11 +86,14 @@
                     </x-primary-button>
                 </a>
                 @else
-                <a href="{{ route('animal.details', ['uuid' => $animal->uuid]) }}" class="p-2">
-                    <x-primary-button>
+                {{-- Replace the <a> tag with a form for POST request --}}
+                <form action="{{ route('adoption.create') }}" method="POST" class="p-2">
+                    @csrf
+                    <input type="hidden" name="animal_uuid" value="{{ $animal->uuid }}">
+                    <x-primary-button type="submit">
                         Adopt
                     </x-primary-button>
-                </a>
+                </form>
                 @endif
                 @endauth
 
