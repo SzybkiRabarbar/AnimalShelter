@@ -22,6 +22,12 @@
                         {{ __('Animals') }}
                     </x-nav-link>
                 </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('shelter.list')" :active="request()->routeIs('shelter.list')">
+                        {{ __('Shelters') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->
@@ -78,6 +84,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('animal.list')" :active="request()->routeIs('animal.list')" class="text-text">
                 {{ __('Animals') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('shelter.list')" :active="request()->routeIs('shelter.list')" class="text-text">
+                {{ __('Shelters') }}
             </x-responsive-nav-link>
         </div>
 

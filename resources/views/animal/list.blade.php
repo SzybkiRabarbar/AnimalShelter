@@ -5,11 +5,11 @@
 
     <x-base-div>
         <form method="GET" action="{{ route('animal.list') }}" class="p-2 flex items-center space-x-4">
-            <label for="shelter_id" class="sr-only">Filter by Shelter</label>
-            <select name="shelter_id" id="shelter_id" class="border-border focus:border-primary focus:ring-primary rounded-md shadow-sm">
+            <label for="shelter_uuid" class="sr-only">Filter by Shelter</label>
+            <select name="shelter_uuid" id="shelter_uuid" class="border-border focus:border-primary focus:ring-primary rounded-md shadow-sm">
                 <option value="all">All Shelters</option>
                 @foreach ($shelters as $shelter)
-                <option value="{{ $shelter->id }}" {{ $selectedShelterId == $shelter->id ? 'selected' : '' }}>
+                <option value="{{ $shelter->uuid }}" {{ $selectedShelterUuid == $shelter->uuid ? 'selected' : '' }}>
                     {{ $shelter->name }}
                 </option>
                 @endforeach
@@ -52,7 +52,7 @@
     <x-base-div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             @forelse ($animals as $animal)
-            <a href="{{ route('animal.details', ['uuid' => $animal->uuid]) }}" id="animal-{{$animal->uuid}}" class="border p-4 rounded hover:border-primary block">
+            <a href="{{ route('animal.details', ['uuid' => $animal->uuid]) }}" id="{{$animal->uuid}}" class="border p-4 rounded hover:border-primary block">
                 <h3 class="text-lg text-center">{{ $animal->name }}</h3>
                 <img src="{{ asset('storage/animals/' . $animal->uuid . '.jpg') }}" alt="{{ $animal->name }}'s photo" class="w-64 h-64 object-cover rounded-lg mb-4 block mx-auto shadow-lg">
                 <div class="bg-dirtyBackground p-2 border rounded-lg flex justify-between shadow-md">

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ShelterController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -13,6 +14,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
+// # Animal #
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/animal', [AnimalController::class, 'list'])->name('animal.list');
     Route::get('/animal/create', [AnimalController::class, 'create'])->name('animal.create');
@@ -22,6 +24,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/animal', [AnimalController::class, 'store'])->name('animal.store');
 });
 
+// # Shelter #
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/shelter', [ShelterController::class, 'list'])->name('shelter.list');
+    Route::get('/shelter/{uuid}', [ShelterController::class, 'details'])->name('shelter.details');
+});
+
+// # Profile #
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
