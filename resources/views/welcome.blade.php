@@ -23,7 +23,8 @@
 
 @auth
 <x-app-layout>
-    {{-- Content for authenticated users --}}
-    <span class="text-text">Hello Authenticated User</span>
+    <script>
+        window.location.href = "{{ url('/dashboard') }}";
+    </script>
 </x-app-layout>
 @endauth
