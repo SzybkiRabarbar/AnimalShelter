@@ -11,22 +11,6 @@
                 class="object-cover rounded-lg mb-4 block shadow-lg">
             <div class="p-2 flex flex-col">
                 @php
-                $details = [
-                ['label' => 'Name', 'value' => $animal->name],
-                ['label' => 'Type', 'value' => $animal->type],
-                ['label' => 'Breed', 'value' => $animal->breed],
-                ['label' => 'Gender', 'value' => $animal->is_male == 1 ? 'M' : 'F'],
-                ['label' => 'DOB', 'value' => $animal->date_of_birth],
-                ['label' => 'Arrival', 'value' => $animal->arrival_date],
-                ['label' => 'Stays in', 'value' => $shelter->name . ' [' . $shelter->zone->name . ']'],
-                ['label' => 'Visiting hours', 'value' => $shelter->open_hour . ' - ' . $shelter->close_hour],
-                ];
-                $texts = [
-                ['label' => 'Description', 'value' => $animal->description],
-                ['label' => 'History', 'value' => $animal->history],
-                ['label' => 'Likes', 'value' => $animal->likes],
-                ['label' => 'Dislikes', 'value' => $animal->dislikes],
-                ];
                 @endphp
 
                 @if($animal->is_archived)
@@ -62,7 +46,7 @@
                 </div>
                 @endforeach
 
-                <a href="{{ route('shelter.details', ['uuid' => $shelter->uuid]) }}" class="p-2">
+                <a href="{{ route('shelter.details', ['uuid' => $animal->shelter->uuid]) }}" class="p-2">
                     <x-secondary-button>
                         Shelter info
                     </x-secondary-button>

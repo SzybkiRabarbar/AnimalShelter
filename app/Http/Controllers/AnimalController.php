@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Animal;
 use App\Models\Shelter;
+use App\Models\UserAnimalView;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 
 class AnimalController extends Controller
 {
@@ -62,9 +64,48 @@ class AnimalController extends Controller
             return Response::json(['error' => 'Animal not found'], 404);
         }
 
+        $user = Auth::user();
+
+        if (!$user->is_admin) {
+            $viewBefore = UserAnimalView::where('user_id', $user->id)
+                ->where('animal_id', $animal->id)
+                ->first();
+
+            if ($viewBefore == null) {
+                $newView = new UserAnimalView([
+                    'uuid' => Str::uuid(),
+                    'user_id' => $user->id,
+                    'animal_id' => $animal->id,
+                ]);
+                $newView->save();
+            }
+        }
+        $viewsCount = UserAnimalView::where('animal_id', $animal->id)->count();
+
+        $shelter = $animal->shelter;
+
+        $details = [
+            ['label' => 'Name', 'value' => $animal->name],
+            ['label' => 'Type', 'value' => $animal->type],
+            ['label' => 'Breed', 'value' => $animal->breed],
+            ['label' => 'Gender', 'value' => $animal->is_male == 1 ? 'M' : 'F'],
+            ['label' => 'DOB', 'value' => $animal->date_of_birth],
+            ['label' => 'Views', 'value' => $viewsCount],
+            ['label' => 'Arrival', 'value' => $animal->arrival_date],
+            ['label' => 'Stays in', 'value' => $shelter->name . ' [' . $shelter->zone->name . ']'],
+            ['label' => 'Visiting hours', 'value' => $shelter->open_hour . ' - ' . $shelter->close_hour],
+        ];
+        $texts = [
+            ['label' => 'Description', 'value' => $animal->description],
+            ['label' => 'History', 'value' => $animal->history],
+            ['label' => 'Likes', 'value' => $animal->likes],
+            ['label' => 'Dislikes', 'value' => $animal->dislikes],
+        ];
+
         return view('animal.details', [
             'animal' => $animal,
-            'shelter' => $animal->shelter,
+            'details' => $details,
+            'texts' => $texts,
         ]);
     }
 

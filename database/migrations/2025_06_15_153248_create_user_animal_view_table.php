@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_animal_views', function (Blueprint $table) {
+        Schema::create('user_animal_view', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique()->index();
             $table->unsignedBigInteger('user_id');
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_animal_views');
+        Schema::dropIfExists('user_animal_view');
     }
 };
