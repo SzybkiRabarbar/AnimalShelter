@@ -48,7 +48,7 @@
             @if (Auth::user()->is_admin)
             <div class="mt-6 flex justify-end">
                 @if (!$adoption->is_accepted)
-                <form action="{{ route('adoption.accept', $adoption->uuid) }}" method="POST" class="inline">
+                <form action="{{ route('adoption.accept', $adoption->uuid) }}" method="POST" class="inline p-1">
                     @csrf
                     @method('PATCH')
                     <x-primary-button>
@@ -57,14 +57,14 @@
                 </form>
                 @endif
                 @if ($adoption->is_accepted && !$adoption->is_taken)
-                <form action="{{ route('adoption.unaccept', $adoption->uuid) }}" method="POST" class="inline">
+                <form action="{{ route('adoption.unaccept', $adoption->uuid) }}" method="POST" class="inline p-1">
                     @csrf
                     @method('PATCH')
                     <x-secondary-button>
                         {{ __('Unaccept Adoption') }}
                     </x-secondary-button>
                 </form>
-                <form action="{{ route('adoption.taken', $adoption->uuid) }}" method="POST" class="inline">
+                <form action="{{ route('adoption.taken', $adoption->uuid) }}" method="POST" class="inline p-1">
                     @csrf
                     @method('PATCH')
                     <x-primary-button>

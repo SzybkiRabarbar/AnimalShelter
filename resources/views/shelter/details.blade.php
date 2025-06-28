@@ -20,6 +20,25 @@
         </a>
         @endif
 
+        @auth
+        @if (!Auth::user()->is_admin)
+        <div class="mt-6">
+            <h3 class="text-xl font-semibold mb-3">Volunteer at this Shelter</h3>
+            <form action="{{ route('volunteering.create') }}" method="POST" class="flex items-center space-x-4">
+                @csrf
+                <input type="hidden" name="shelter_uuid" value="{{ $shelter->uuid }}">
+                <div>
+                    <label for="volunteer_date" class="sr-only">Volunteer Date</label>
+                    <input type="date" id="volunteer_date" name="volunteer_date" required class="border-border rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50">
+                </div>
+                <x-primary-button type="submit">
+                    Request to Volunteer
+                </x-primary-button>
+            </form>
+        </div>
+        @endif
+        @endauth
+
     </x-base-div>
 
 </x-app-layout>

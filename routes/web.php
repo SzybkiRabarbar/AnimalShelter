@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\AdoptionController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShelterController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdoptionController;
+use App\Http\Controllers\VolunteeringController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -39,6 +40,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/adoption/{uuid}/accept', [AdoptionController::class, 'accept'])->name('adoption.accept');
     Route::patch('/adoption/{uuid}/unaccept', [AdoptionController::class, 'unaccept'])->name('adoption.unaccept');
     Route::patch('/adoption/{uuid}/taken', [AdoptionController::class, 'taken'])->name('adoption.taken');
+});
+
+// # Volunteering #
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/volunteering', [VolunteeringController::class, 'list'])->name('volunteering.list');
+    Route::post('/volunteering', [VolunteeringController::class, 'create'])->name('volunteering.create');
+    Route::get('/volunteering/{uuid}', [VolunteeringController::class, 'details'])->name('volunteering.details');
+    Route::patch('/volunteering/{uuid}/accept', [VolunteeringController::class, 'accept'])->name('volunteering.accept');
+    Route::patch('/volunteering/{uuid}/unaccept', [VolunteeringController::class, 'unaccept'])->name('volunteering.unaccept');
+    Route::patch('/volunteering/{uuid}/taken', [VolunteeringController::class, 'tookPlace'])->name('volunteering.taken');
 });
 
 // # Profile #

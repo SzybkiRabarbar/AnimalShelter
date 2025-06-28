@@ -6,5 +6,6 @@ SELECT * FROM shelters;
 
 SELECT * FROM animals;
 
--- DELETE FROM animals;
+SELECT * FROM adoptions;
 
+SELECT * FROM volunteerings;

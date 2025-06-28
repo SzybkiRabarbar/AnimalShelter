@@ -34,6 +34,12 @@
                         {{ __('Adoptions') }}
                     </x-nav-link>
                 </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('volunteering.list')" :active="request()->routeIs('volunteering.list')">
+                        {{ __('Volunteering') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->
@@ -96,6 +102,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('adoption.list')" :active="request()->routeIs('adoption.list')" class="text-text">
                 {{ __('Adoptions') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('volunteering.list')" :active="request()->routeIs('volunteering.list')" class="text-text">
+                {{ __('Volunteering') }}
             </x-responsive-nav-link>
         </div>
 

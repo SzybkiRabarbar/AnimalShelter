@@ -22,7 +22,7 @@
                 </thead>
                 <tbody class="divide-y divide-border">
                     @foreach ($adoptions as $adoption)
-                    <tr class="hover:bg-dirtyBackground">
+                    <tr class="{{ $loop->even ? 'bg-dirtyBackground' : 'bg-background' }}">
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium ">
                             {{ $adoption->animal->name ?? 'N/A' }}
                         </td>
@@ -43,7 +43,7 @@
                             {{ $adoption->take_date ? \Carbon\Carbon::parse($adoption->take_date)->format('Y-m-d') : __('Not set') }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <a href="{{ route('adoption.details', $adoption->uuid) }}" class="text-primary hover:text-text">{{ __('Details') }}</a>
+                            <a href="{{ route('adoption.details', $adoption->uuid) }}" class="text-primary hover:underline">{{ __('Details') }}</a>
                         </td>
                     </tr>
                     @endforeach

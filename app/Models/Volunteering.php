@@ -10,7 +10,7 @@ class Volunteering extends Model
     protected $fillable = [
         'uuid',
         'user_id',
-        'animal_id',
+        'shelter_id',
         'volunteer_date',
         'is_accepted',
         'took_place',
