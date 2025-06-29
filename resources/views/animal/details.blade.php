@@ -10,9 +10,6 @@
                 style="height: 60vh; width: 60vh;"
                 class="object-cover rounded-lg mb-4 block shadow-lg">
             <div class="p-2 flex flex-col">
-                @php
-                @endphp
-
                 @if($animal->is_archived)
                 <div class="bg-dirtyBackground p-1 border rounded-lg shadow-md">
                     <h2 class="text-lg">ARCHIVED</h2>
@@ -53,14 +50,6 @@
                 </a>
 
 
-                @foreach ($texts as $text)
-                <span class="p-1">
-                    {{ $text['label'] }}
-                </span>
-                <span class="bg-dirtyBackground p-1 border rounded-lg flex justify-between shadow-md">
-                    {{ $text['value'] }}
-                </span>
-                @endforeach
 
                 @auth
                 @if (Auth::user()->is_admin)
@@ -83,6 +72,17 @@
 
             </div>
         </div>
+
+        @foreach ($texts as $text)
+        <div class="overflow-hidden shadow-sm sm:rounded-lg mb-6 p-3 text-center">
+            <span class="p-1 text-xl text-primary">
+                {{ $text['label'] }}
+            </span>
+            <span class="bg-dirtyBackground p-1 border rounded-lg flex justify-between shadow-md">
+                {{ $text['value'] }}
+            </span>
+        </div>
+        @endforeach
     </x-base-div>
 
 </x-app-layout>

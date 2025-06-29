@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Animal;
 use App\Models\Shelter;
 use App\Models\UserAnimalView;
+use App\Services\AnimalLlmService;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -199,5 +200,25 @@ class AnimalController extends Controller
         }
 
         return redirect()->route('animal.details', ['uuid' => $animal->uuid])->with('success', 'Animal added successfully!');
+    }
+
+    public function generateProp(Request $request): JsonResponse
+    {
+        $validatedData = $request->validate([
+            'prop' => 'required|string|max:255',
+            'type' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'is_male' => 'boolean',
+            'breed' => 'nullable|string|max:255',
+            'date_of_birth' => 'nullable|date',
+            'description' => 'nullable|string',
+            'history' => 'nullable|string',
+            'likes' => 'nullable|string',
+            'dislikes' => 'nullable|string',
+        ]);
+
+        $response = AnimalLlmService::generateSingleProp($validatedData, $validatedData['prop']);
+
+        return Response::json(['value' => $response]);
     }
 }

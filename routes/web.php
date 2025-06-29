@@ -22,6 +22,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/animal/create', [AnimalController::class, 'create'])->name('animal.create');
     Route::get('/animal/{uuid}', [AnimalController::class, 'details'])->name('animal.details');
     Route::put('/animal/{uuid}', [AnimalController::class, 'update'])->name('animal.update');
+    Route::post('/animal/llm/prop', [AnimalController::class, 'generateProp'])->name('animal.llm.prop');
     Route::get('/animal/edit/{uuid}', [AnimalController::class, 'edit'])->name('animal.edit');
     Route::post('/animal', [AnimalController::class, 'store'])->name('animal.store');
 });
