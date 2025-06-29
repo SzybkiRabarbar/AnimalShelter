@@ -4,8 +4,6 @@
     </x-slot>
 
     <x-base-div>
-        <h2 class="text-2xl font-semibold mb-4 ">{{ __('Adoption List') }}</h2>
-
         <div class="overflow-x-auto  shadow-sm sm:rounded-lg border border-border">
             <table class="min-w-full divide-y divide-border">
                 <thead class="bg-dirtyBackground">
