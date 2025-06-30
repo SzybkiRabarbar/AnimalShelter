@@ -4,37 +4,39 @@
     </x-slot>
 
     <x-base-div>
-        <form method="GET" action="{{ route('animal.list') }}" class="p-2 flex items-center space-x-4">
-            <label for="shelter_uuid" class="sr-only">Filter by Shelter</label>
-            <select name="shelter_uuid" id="shelter_uuid" class="border-border focus:border-primary focus:ring-primary rounded-md shadow-sm">
-                <option value="all">All Shelters</option>
-                @foreach ($shelters as $shelter)
-                <option value="{{ $shelter->uuid }}" {{ $selectedShelterUuid == $shelter->uuid ? 'selected' : '' }}>
-                    {{ $shelter->name }}
-                </option>
-                @endforeach
-            </select>
-            <select name="type" id="type" class="border-border focus:border-primary focus:ring-primary rounded-md shadow-sm">
-                <option value="all">All Types</option>
-                @foreach ($types as $type)
-                <option value="{{ $type }}" {{ $selectedType == $type ? 'selected' : '' }}>
-                    {{ $type }}
-                </option>
-                @endforeach
-            </select>
-            <select name="breed" id="breed" class="border-border focus:border-primary focus:ring-primary rounded-md shadow-sm" {{ empty($breeds) ? 'disabled ' : '' }}>
-                <option value="all" {{ empty($breeds) ? 'disabled' : '' }}>All breeds</option>
-                @if (!empty($breeds))
-                @foreach ($breeds as $breed)
-                <option value="{{ $breed }}" {{ $selectedBreed == $breed ? 'selected' : '' }}>
-                    {{ $breed }}
-                </option>
-                @endforeach
-                @endif
-            </select>
-            <x-primary-button type="submit">
-                Apply Filter
-            </x-primary-button>
+        <div class="p-2 flex items-center space-x-4">
+            <form method="GET" action="{{ route('animal.list') }}" class="">
+                <label for="shelter_uuid" class="sr-only">Filter by Shelter</label>
+                <select name="shelter_uuid" id="shelter_uuid" class="border-border focus:border-primary focus:ring-primary rounded-md shadow-sm">
+                    <option value="all">All Shelters</option>
+                    @foreach ($shelters as $shelter)
+                    <option value="{{ $shelter->uuid }}" {{ $selectedShelterUuid == $shelter->uuid ? 'selected' : '' }}>
+                        {{ $shelter->name }}
+                    </option>
+                    @endforeach
+                </select>
+                <select name="type" id="type" class="border-border focus:border-primary focus:ring-primary rounded-md shadow-sm">
+                    <option value="all">All Types</option>
+                    @foreach ($types as $type)
+                    <option value="{{ $type }}" {{ $selectedType == $type ? 'selected' : '' }}>
+                        {{ $type }}
+                    </option>
+                    @endforeach
+                </select>
+                <select name="breed" id="breed" class="border-border focus:border-primary focus:ring-primary rounded-md shadow-sm" {{ empty($breeds) ? 'disabled ' : '' }}>
+                    <option value="all" {{ empty($breeds) ? 'disabled' : '' }}>All breeds</option>
+                    @if (!empty($breeds))
+                    @foreach ($breeds as $breed)
+                    <option value="{{ $breed }}" {{ $selectedBreed == $breed ? 'selected' : '' }}>
+                        {{ $breed }}
+                    </option>
+                    @endforeach
+                    @endif
+                </select>
+                <x-primary-button type="submit">
+                    Apply Filter
+                </x-primary-button>
+            </form>
             @auth
             @if (Auth::user()->is_admin)
             <a href="{{ route('animal.create') }}">
@@ -44,8 +46,7 @@
             </a>
             @endif
             @endauth
-        </form>
-
+        </div>
     </x-base-div>
 
 
